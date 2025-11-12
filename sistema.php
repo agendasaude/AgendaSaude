@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['tipo'])) {
     header('Location: login.html');
     exit();
@@ -13,10 +14,8 @@ $logado = $_SESSION['email'] ?? 'Usuário';
 $user_data = [];
 $is_admin = $tipo === 'admin';
 
-// Função para buscar dados do usuário logado (exceto admin)
 function getUserData($pdo, $user_id, $tipo) {
     if ($tipo === 'admin') return ['nome' => 'Administrador'];
-    
     $table = match($tipo) {
         'paciente' => 'pacientes',
         'medico' => 'medicos',
@@ -25,13 +24,11 @@ function getUserData($pdo, $user_id, $tipo) {
     };
 
     if (is_null($table)) return null;
-    
     $stmt = $pdo->prepare("SELECT * FROM $table WHERE id = :id");
     $stmt->execute(['id' => $user_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Renderiza um item de agendamento (usado no painel)
 function renderAgendamentoItem($ag, $tipo) {
     $status_class = match($ag['status']) {
         'confirmado' => 'status-confirmado',
@@ -52,7 +49,6 @@ function renderAgendamentoItem($ag, $tipo) {
     $html .= "  </div>";
     $html .= "  <div class='status-badge'>Status: " . ucfirst($ag['status']) . "</div>";
 
-    // Form para alteração de status (apenas para Médico e Clínica)
     if ($tipo === 'medico' || $tipo === 'clinica') {
         $html .= "  <div class='actions'>";
         $html .= "      <form action='gerenciarA.php' method='POST' style='display:inline;'>";
@@ -67,7 +63,6 @@ function renderAgendamentoItem($ag, $tipo) {
         $html .= "      </form>";
         $html .= "  </div>";
     }
-
     $html .= "</div>";
     return $html;
 }
@@ -78,8 +73,6 @@ $nome_display = htmlspecialchars($user_data['nome'] ?? 'Painel');
 if (!$is_admin) {
     $agendamentos = [];
     $historico_agendamentos = [];
-
-    // Define a coluna de filtro
     $filter_column = match($tipo) {
         'paciente' => 'paciente_id',
         'medico' => 'medico_id',
@@ -88,39 +81,25 @@ if (!$is_admin) {
     };
 
     if (!is_null($filter_column)) {
-        // Define a consulta SQL base para agendamentos
         $sql_base = "
-            SELECT 
-                a.id, a.data_agendamento, a.horario, a.descricao, a.status,
-                p.nome AS paciente_nome, m.nome AS medico_nome, c.nome AS clinica_nome
-            FROM agendamentos a
-            LEFT JOIN pacientes p ON a.paciente_id = p.id
-            LEFT JOIN medicos m ON a.medico_id = m.id
-            LEFT JOIN clinicas c ON a.clinica_id = c.id
-            WHERE a.{$filter_column} = :user_id
-            ORDER BY a.data_agendamento DESC, a.horario DESC
-        ";
+            SELECT a.id, a.data_agendamento, a.horario, a.descricao, a.status, p.nome AS paciente_nome, m.nome AS medico_nome, c.nome AS clinica_nome
+            FROM agendamentos a LEFT JOIN pacientes p ON a.paciente_id = p.id
+            LEFT JOIN medicos m ON a.medico_id = m.id LEFT JOIN clinicas c ON a.clinica_id = c.id
+            WHERE a.{$filter_column} = :user_id ORDER BY a.data_agendamento DESC, a.horario DESC";
         
-        // Consulta todos os agendamentos
         $stmt = $pdo->prepare($sql_base);
         $stmt->execute(['user_id' => $user_id]);
         $all_agendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         $hoje = date('Y-m-d');
 
-        // Separa em Agendamentos Ativos (Futuros) e Histórico (Passados/Cancelados)
         foreach ($all_agendamentos as $ag) {
             $data_ag = $ag['data_agendamento'];
-            
             if (($ag['status'] === 'pendente' || $ag['status'] === 'confirmado') && $data_ag >= $hoje) {
                 $agendamentos[] = $ag;
             } else {
                 $historico_agendamentos[] = $ag;
-            }
-        }
-    }
+            } } }
 } else {
-    // Lógica do ADMINISTRADOR
     $medicos = $pdo->query("SELECT id, nome, email FROM medicos ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
     $clinicas = $pdo->query("SELECT id, nome, email FROM clinicas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -355,27 +334,26 @@ if (!$is_admin) {
     </div>
     
     <div class="content-area">
-        <h1>Painel de **<?php echo $nome_display; ?>**</h1>
+        <h1>Painel de <?php echo $nome_display; ?></h1>
         <?php 
         $success = $_GET['success'] ?? '';
         $error = $_GET['error'] ?? '';
         if ($success === 'user_medico_deleted') {
-            echo '<div class="message success">Médico removido com sucesso.</div>';
+            echo '<div class="message success">Médico removido</div>';
         } elseif ($success === 'user_clinica_deleted') {
-            echo '<div class="message success">Clínica removida com sucesso.</div>';
+            echo '<div class="message success">Clínica removida</div>';
         } elseif ($error) {
             echo '<div class="message error">Ocorreu um erro: ' . htmlspecialchars($error) . '</div>';
         }
         ?>
 
         <?php if (!$is_admin): ?>
-            <!-- Conteúdo Padrão para Paciente, Médico e Clínica -->
             <div class="agendamento-section">
                 <h2>Próximos Agendamentos (Pendentes/Confirmados)</h2>
                 <hr>
                 <div class="agendamento-list">
                     <?php if (empty($agendamentos)): ?>
-                        <div class="no-records">Nenhum agendamento pendente ou confirmado encontrado.</div>
+                        <div class="no-records">Nenhum agendamento pendente ou confirmado encontrado</div>
                     <?php else: ?>
                         <?php foreach ($agendamentos as $ag): ?>
                             <?php echo renderAgendamentoItem($ag, $tipo); ?>
@@ -389,7 +367,7 @@ if (!$is_admin) {
                 <hr>
                 <div class="agendamento-list">
                     <?php if (empty($historico_agendamentos)): ?>
-                        <div class="no-records">Nenhum histórico encontrado.</div>
+                        <div class="no-records">Nenhum histórico encontrado</div>
                     <?php else: ?>
                         <?php foreach ($historico_agendamentos as $ag): ?>
                             <?php echo renderAgendamentoItem($ag, $tipo); ?>
@@ -398,7 +376,6 @@ if (!$is_admin) {
                 </div>
             </div>
         <?php else: ?>
-            <!-- Conteúdo EXCLUSIVO do Administrador -->
             <div class="admin-actions">
                 <a href="backup.php"><i class="fas fa-download"></i> Fazer Backup</a>
                 <a href="restaurar.php"><i class="fas fa-upload"></i> Restaurar Backup</a>
