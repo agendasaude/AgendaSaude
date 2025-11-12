@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($nome) || empty($especialidade) || $clinica_id <= 0 || empty($dias_semana) || empty($horarios) || empty($senha) || $email === false || empty($email)) {
         $error_type = 'empty_or_invalid_fields';
-        $error_message = 'Por favor, preencha todos os campos obrigatórios corretamente.';
+        $error_message = 'Por favor, preencha todos os campos obrigatórios corretamente';
     } else {
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM medicos WHERE email = :email");
         $stmt->execute(['email' => $email]);
         if ($stmt->fetchColumn() > 0) {
             $error_type = 'email_already_registered';
-            $error_message = 'Este e-mail já está cadastrado como médico.';
+            $error_message = 'Este e-mail já está cadastrado como médico';
         } else {
             $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("INSERT INTO medicos (nome, cbo, rqe, especialidade, clinica_id, dias_semana, horarios, email, senha) VALUES (:nome, :cbo, :rqe, :especialidade, :clinica_id, :dias_semana, :horarios, :email, :senha_hash)");
@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'horarios' => $horarios,
                     'email' => $email,
                     'senha_hash' => $senhaHash]);
-                
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['tipo'] = 'medico';
                 $_SESSION['email'] = $email;
@@ -53,14 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit();
             } catch (PDOException $e) {
                 $error_type = 'database_insertion_failed';
-                $error_message = 'Erro interno ao tentar salvar o cadastro.';
+                $error_message = 'Erro ao salvar o cadastro';
             } } } }
 
 try {
     $stmt = $pdo->query("SELECT id, nome FROM clinicas ORDER BY nome");
     $clinicas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    $error_message = 'Erro ao carregar a lista de clínicas.';
+    $error_message = 'Erro ao carregar a lista de clínicas';
     $error_type = 'db_fetch_error';
 }
 
