@@ -39,60 +39,48 @@
     </footer>
 
     <script>
-        // Função utilitária para exibir feedback
         function showFeedback(message, type) {
             const messageDiv = document.getElementById('feedback-message');
             messageDiv.textContent = message;
             messageDiv.className = `feedback-message ${type}-message`; 
             messageDiv.style.display = 'block';
-            setTimeout(() => {
-                messageDiv.style.display = 'none'; }, 5000);
-        }
-        document.getElementById('search-button').addEventListener('click', function() {
+            setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
+        } document.getElementById('search-button').addEventListener('click', function() {
             const query = document.getElementById('search-query').value.trim();
             const resultadosDiv = document.getElementById('resultados-div');
             resultadosDiv.innerHTML = '';
-            showFeedback('', ''); // Limpa mensagens anteriores
+            showFeedback('', ''); 
+            
             if (query.length >= 3) {
-                // Acessa o backend PHP para buscar resultados
-                fetch(`buscar.php?q=${encodeURIComponent(query)}`)
-                    .then(response => {
+                fetch(`buscar.php?q=${encodeURIComponent(query)}`).then(response => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
-                        } return response.json();
-                    }) .then(data => {
+                        } return response.json(); }) .then(data => {
                         let htmlOutput = '';
                         let totalCount = 0;
 
-                        // Resultados de Médicos
                         if (data.medicos && data.medicos.length > 0) {
                             totalCount += data.medicos.length;
                             htmlOutput += '<h3>Médicos Encontrados:</h3><ul class="agendamentos-list">';
                             data.medicos.forEach(medico => {
-                                htmlOutput += ` <li> <span> <i class="fas fa-user-md"></i> **${medico.nome}** - ${medico.especialidade} (Clínica: ${medico.clinica} </span> <a href="calendario.php" class="btn btn-secondary">Agendar</a> </li> `;
-                            });
+                                htmlOutput += ` <li> <span> <i class="fas fa-user-md"></i> **${medico.nome}** - ${medico.especialidade} (Clínica: ${medico.clinica} </span> <a href="calendario.php" class="btn btn-secondary">Agendar</a> </li> `; });
                             htmlOutput += '</ul>';
                         }
 
-                        // Resultados de Clínicas
                         if (data.clinicas && data.clinicas.length > 0) {
                             totalCount += data.clinicas.length;
                             htmlOutput += '<h3>Clínicas Encontradas:</h3><ul class="agendamentos-list">';
                             data.clinicas.forEach(clinica => {
-                                htmlOutput += ` <li> <span> <i class="fas fa-hospital"></i> **${clinica.nome}** - Especialidades: ${clinica.especialidades} </span> </li> `;
-                            });
+                                htmlOutput += ` <li> <span> <i class="fas fa-hospital"></i> **${clinica.nome}** - Especialidades: ${clinica.especialidades} </span> </li> `; });
                             htmlOutput += '</ul>';
                         } if (totalCount === 0) {
                             htmlOutput = '<p class="feedback-message info-message">Nenhum resultado encontrado para sua pesquisa.</p>';
-                        } resultadosDiv.innerHTML = htmlOutput;
-                    }) .catch(error => {
+                        } resultadosDiv.innerHTML = htmlOutput; }).catch(error => {
                         showFeedback('Erro ao carregar resultados. Tente novamente mais tarde.', 'error');
-                        console.error('Erro na busca:', error);
-                    });
+                        console.error('Erro na busca:', error); });
             } else {
                 showFeedback('Digite pelo menos 3 caracteres para buscar.', 'warning');
-            }
-        });
+            } });
     </script>
 </body>
 </html>
