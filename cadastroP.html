@@ -66,10 +66,10 @@
             const error = urlParams.get('error');
             const messageDiv = document.getElementById('feedback-message');
             let msg = '';
+            
             if (error) {
                 messageDiv.classList.remove('success-message');
                 messageDiv.classList.add('error-message');
-                
                 if (error === 'empty_or_invalid_fields') {
                     msg = 'Por favor, preencha todos os campos obrigatórios corretamente.';
                 } else if (error === 'email_or_cpf_already_registered') {
@@ -78,8 +78,7 @@
                     msg = 'Ocorreu um erro desconhecido no cadastro.';
                 }
                 messageDiv.textContent = msg;
-                messageDiv.style.display = 'block';
-        } });
+                messageDiv.style.display = 'block'; } });
     </script>
 </body>
 </html>
