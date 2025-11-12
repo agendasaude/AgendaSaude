@@ -30,17 +30,11 @@ if ($action === 'booked') {
     $agendados = [];
 
     if ($medico_id > 0 && $clinica_id > 0 && !empty($data_agendamento)) {
-        $stmt = $pdo->prepare("
-            SELECT horario 
-            FROM agendamentos 
-            WHERE medico_id = :medico_id AND clinica_id = :clinica_id 
-            AND data_agendamento = :data_agendamento AND status IN ('pendente', 'confirmado')
-        ");
+        $stmt = $pdo->prepare("SELECT horario FROM agendamentos WHERE medico_id = :medico_id AND clinica_id = :clinica_id AND data_agendamento = :data_agendamento AND status IN ('pendente', 'confirmado')");
         $stmt->execute(compact('medico_id', 'clinica_id', 'data_agendamento'));
         $agendados = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
     } echo json_encode(['booked' => $agendados]);
     exit();
 } echo json_encode(['error' => 'Ação não suportada']);
 exit();
-
 ?>
