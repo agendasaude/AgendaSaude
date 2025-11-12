@@ -1,0 +1,391 @@
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #00bfff;
+    --text-color: #2b2d42;
+    --light-text: #f8f9fa;
+    --background-light: #f5f7fa;
+    --card-background: #ffffff;
+    --border-color: #dee2e6;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --calendar-border: #adb5bd;
+    --calendar-active: #ffc107;
+    --calendar-today: #e9ecef;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} body {
+    background: linear-gradient(135deg, var(--background-light) 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+} header {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px var(--shadow-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+} .logo {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    transition: color 0.3s;
+} .logo:hover {
+    color: var(--accent-color);
+} nav a {
+    color: var(--light-text);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: 500;
+} nav a:hover {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+} nav i {
+    margin-right: 0.5rem;
+} .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    flex-grow: 1;
+} h1, h2 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+} hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 1rem 0;
+} .btn {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; 
+    font-weight: bold;
+    display: inline-block; 
+    text-align: center;
+} .btn:hover {
+    background-color: var(--secondary-color);
+} .btn-secondary {
+    background-color: var(--success-color);
+} .btn-secondary:hover {
+    background-color: #1e7e34;
+} .btn-delete {
+    background-color: var(--error-color);
+} .btn-delete:hover {
+    background-color: #c82333;
+} .form-container, .card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px var(--shadow-light);
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+} .form-group {
+    margin-bottom: 15px;
+} .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+} .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+} .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+} .form-container .btn {
+    width: 100%;
+    margin-top: 15px;
+} .form-group select[multiple] {
+    padding: 10px; 
+    background-color: #f8f9fa;
+} .form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #6c757d;
+} .dashboard-header {
+    text-align: center;
+    margin-bottom: 30px;
+} .user-info {
+    text-align: center;
+    margin-bottom: 20px;
+} .agendamento-section {
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+} .agendamentos-list {
+    list-style: none;
+    padding: 0;
+} .agendamentos-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+} .agendamentos-list li:last-child {
+    border-bottom: none;
+} .agendamentos-list span {
+    flex-grow: 1;
+    margin-right: 10px;
+} .agendamentos-list form {
+    display: inline-block;
+    margin-left: 10px;
+} .status-pendente { color: var(--warning-color); font-weight: bold; }
+.status-confirmado { color: var(--success-color); font-weight: bold; }
+.status-cancelado { color: var(--error-color); font-weight: bold; }
+.status-realizado { color: var(--text-color); font-weight: bold; opacity: 0.7; }
+.admin-list {
+    list-style: none;
+    padding: 0;
+} .admin-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+} .admin-list li:last-child {
+    border-bottom: none;
+} .selector-container {
+    background-color: var(--card-background);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px var(--shadow-light);
+    width: 100%;
+    max-width: 700px;
+    margin: 50px auto;
+    text-align: center;
+} .option-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 30px;
+} .option-button {
+    text-decoration: none;
+    background-color: var(--background-light);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s;
+    color: var(--text-color);
+    font-weight: 600;
+} .option-button:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.3);
+    background-color: #f0f4ff;
+} .option-button i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+} footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--light-text);
+    margin-top: auto;
+} .backup-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 30px;
+} input[type="file"] {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    cursor: pointer;
+} .btn-restore {
+    background-color: var(--error-color);
+    color: var(--light-text);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+} .btn-restore:hover {
+    background-color: #c82333;
+} .feedback-message, .message { 
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+} .error-message, .message.error {
+    background-color: #f8d7da; 
+    color: #721c24; 
+    border: 1px solid #f5c6cb;
+} .success-message, .message.success {
+    background-color: #d4edda; 
+    color: #155724; 
+    border: 1px solid #c3e6cb;
+} .warning-message, .message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+} .info-message, .message.info {
+    background-color: #e9f5ff; 
+    color: #007bff; 
+    border: 1px solid #cce5ff;
+} .container.calendar-layout { 
+    display: grid; 
+    grid-template-columns: 1fr 1.2fr; 
+    gap: 20px;
+    max-width: 1400px; 
+} .calendar-wrapper, .form-agendamento-wrapper {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px var(--shadow-light);
+    height: fit-content;
+} .calendar-wrapper h1, .form-agendamento-wrapper h1 {
+    text-align: left;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+} .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+} .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+} .calendar-day, .day-header {
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    border: 1px solid var(--border-color);
+} .day-header {
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    color: var(--light-text);
+    border: none;
+} .calendar-day:hover:not(.disabled):not(.selected) {
+    background-color: var(--background-light);
+    cursor: pointer;
+} .disabled {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+    cursor: default;
+} .today {
+    font-weight: bold;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+} .selected {
+    background-color: var(--primary-color) !important;
+    color: var(--light-text);
+    font-weight: bold;
+} .hero-section-card {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: 40px 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px var(--shadow-light);
+} .hero-section-card h1 { 
+    color: var(--light-text); 
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+} .hero-section-card p { 
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+} .features-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px var(--shadow-light);
+} .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+} .feature-item {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+} .feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--shadow-light);
+} .feature-item i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+} .feature-item h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+@media (max-width: 900px) {
+    .container.calendar-layout {
+        grid-template-columns: 1fr;
+    }
+} @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    } .logo {
+        margin-bottom: 0.5rem;
+    } nav {
+        flex-direction: column;
+        gap: 0.1rem;
+        width: 100%;
+        align-items: flex-start;
+    } nav a {
+        padding: 0.5rem;
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+    } .option-grid {
+        flex-direction: column;
+    } .form-container, .card, .selector-container {
+        margin: 20px;
+        padding: 20px;
+    } .info-grid {
+        grid-template-columns: 1fr;
+} }

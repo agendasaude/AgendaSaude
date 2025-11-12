@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clínica - AgendaSaúde</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="cadastro-body">
+    <header>
+        <a href="inicio.php" class="logo">AgendaSaúde</a>
+        <nav>
+            <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </nav>
+    </header>
+
+    <div class="form-container" style="max-width: 600px;">
+        <h2><i class="fas fa-hospital"></i> Cadastro de Clínica</h2>
+        <div id="feedback-message" class="feedback-message" style="display: none;"></div>
+        <form action="cadastroC.php" method="POST">
+            <div class="form-group">
+                <label for="nome">Nome da Clínica:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" required>
+            </div>
+            <div class="form-group">
+                <label for="especialidades">Especialidades (selecione uma ou mais):</label>
+                <select id="especialidades" name="especialidades[]" required multiple size="10">
+                    <option value="Clínica de Acupuntura">Clínica de Acupuntura</option>
+                    <option value="Clínica de Alergia e Imunologia">Clínica de Alergia e Imunologia</option>
+                    <option value="Serviços de Anestesiologia">Serviços de Anestesiologia</option>
+                    <option value="Clínica de Angiologia">Clínica de Angiologia</option>
+                    <option value="Clínica Cardiológica">Clínica Cardiológica</option>
+                    <option value="Centro de Cirurgia Cardiovascular">Centro de Cirurgia Cardiovascular</option>
+                    <option value="Clínica de Cirurgia da Mão">Clínica de Cirurgia da Mão</option>
+                    <option value="Clínica de Cirurgia de Cabeça e Pescoço">Clínica de Cirurgia de Cabeça e Pescoço</option>
+                    <option value="Clínica de Aparelho Digestivo">Clínica de Aparelho Digestivo</option>
+                    <option value="Clínica de Cirurgia Geral">Clínica de Cirurgia Geral</option>
+                    <option value="Centro Oncológico (Cirurgia)">Centro Oncológico (Cirurgia)</option>
+                    <option value="Clínica de Cirurgia Pediátrica">Clínica de Cirurgia Pediátrica</option>
+                    <option value="Clínica de Cirurgia Plástica">Clínica de Cirurgia Plástica</option>
+                    <option value="Clínica de Cirurgia Torácica">Clínica de Cirurgia Torácica</option>
+                    <option value="Clínica de Cirurgia Vascular">Clínica de Cirurgia Vascular</option>
+                    <option value="Clínica Geral (Clínica Médica)">Clínica Geral (Clínica Médica)</option>
+                    <option value="Clínica de Coloproctologia">Clínica de Coloproctologia</option>
+                    <option value="Clínica Dermatológica">Clínica Dermatológica</option>
+                    <option value="Clínica de Endocrinologia e Metabologia">Clínica de Endocrinologia e Metabologia</option>
+                    <option value="Centro de Endoscopia">Centro de Endoscopia</option>
+                    <option value="Clínica de Gastroenterologia">Clínica de Gastroenterologia</option>
+                    <option value="Clínica de Genética Médica">Clínica de Genética Médica</option>
+                    <option value="Clínica Geriátrica">Clínica Geriátrica</option>
+                    <option value="Clínica de Ginecologia e Obstetrícia">Clínica de Ginecologia e Obstetrícia</option>
+                    <option value="Clínica de Hematologia e Hemoterapia">Clínica de Hematologia e Hemoterapia</option>
+                    <option value="Clínica de Homeopatia">Clínica de Homeopatia</option>
+                    <option value="Clínica de Infectologia">Clínica de Infectologia</option>
+                    <option value="Clínica de Mastologia">Clínica de Mastologia</option>
+                    <option value="Clínica de Medicina de Emergência">Clínica de Medicina de Emergência</option>
+                    <option value="Clínica de Medicina de Família">Clínica de Medicina de Família</option>
+                    <option value="Clínica de Medicina do Trabalho">Clínica de Medicina do Trabalho</option>
+                    <option value="Clínica de Medicina do Tráfego">Clínica de Medicina do Tráfego</option>
+                    <option value="Clínica de Medicina Esportiva">Clínica de Medicina Esportiva</option>
+                    <option value="Clínica de Medicina Intensiva (UTI)">Clínica de Medicina Intensiva (UTI)</option>
+                    <option value="Clínica de Medicina Legal e Perícia">Clínica de Medicina Legal e Perícia</option>
+                    <option value="Centro de Medicina Nuclear">Centro de Medicina Nuclear</option>
+                    <option value="Clínica de Medicina Preventiva">Clínica de Medicina Preventiva</option>
+                    <option value="Clínica de Nefrologia">Clínica de Nefrologia</option>
+                    <option value="Clínica de Neurocirurgia">Clínica de Neurocirurgia</option>
+                    <option value="Clínica Neurológica">Clínica Neurológica</option>
+                    <option value="Clínica de Nutrologia">Clínica de Nutrologia</option>
+                    <option value="Clínica Oftalmológica">Clínica Oftalmológica</option>
+                    <option value="Centro Oncológico (Clínico)">Centro Oncológico (Clínico)</option>
+                    <option value="Clínica de Ortopedia e Traumatologia">Clínica de Ortopedia e Traumatologia</option>
+                    <option value="Clínica de Otorrinolaringologia">Clínica de Otorrinolaringologia</option>
+                    <option value="Laboratório de Patologia">Laboratório de Patologia</option>
+                    <option value="Laboratório de Patologia Clínica (Análises)">Laboratório de Patologia Clínica (Análises)</option>
+                    <option value="Clínica Pediátrica">Clínica Pediátrica</option>
+                    <option value="Clínica de Pneumologia">Clínica de Pneumologia</option>
+                    <option value="Clínica Psiquiátrica">Clínica Psiquiátrica</option>
+                    <option value="Centro de Radiologia (Diagnóstico por Imagem)">Centro de Radiologia (Diagnóstico por Imagem)</option>
+                    <option value="Centro de Radioterapia">Centro de Radioterapia</option>
+                    <option value="Clínica de Reumatologia">Clínica de Reumatologia</option>
+                    <option value="Clínica Urológica">Clínica Urológica</option>
+                </select>
+                <small>Segure Ctrl para selecionar mais de uma</small>
+            </div>
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+             <button type="submit" class="btn">Cadastrar</button>
+        </form>
+    </div>
+    <footer>
+        &copy; 2025 ©AgendaSaúde. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const messageDiv = document.getElementById('feedback-message');
+            let msg = '';
+
+            if (error) {
+                messageDiv.classList.remove('success-message');
+                messageDiv.classList.add('error-message');
+                if (error === 'empty_or_invalid_fields') {
+                    msg = 'Por favor, preencha todos os campos obrigatórios corretamente.';
+                } else if (error === 'email_or_cnpj_already_registered') {
+                    msg = 'E-mail ou CNPJ já cadastrado. Tente fazer login.';
+                } else {
+                    msg = 'Ocorreu um erro desconhecido no cadastro.';
+                }
+                messageDiv.textContent = msg;
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
