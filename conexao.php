@@ -13,12 +13,9 @@ try {
         "mysql:host=$host;dbname=$dbname;charset=utf8", 
         $user, 
         $pass,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC 
-        ]
-    );
+        [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ] );
 } catch (PDOException $e) {
-    die("Erro de conexão com o banco de dados. Verifique a configuração em conexao.php."); 
+    die("Erro de conexão com o banco de dados. Verifique a configuração em conexao.php"); 
 }
 ?>
