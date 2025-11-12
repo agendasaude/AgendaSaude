@@ -8,11 +8,7 @@ header('Content-Type: application/json');
 
 if (!empty($query)) {
     $query_like = '%' . $query . '%'; 
-    $stmt = $pdo->prepare("
-        SELECT m.id, m.nome, m.especialidade, c.nome AS clinica, m.email 
-        FROM medicos m
-        JOIN clinicas c ON m.clinica_id = c.id
-        WHERE m.nome LIKE :query OR m.especialidade LIKE :query OR c.nome LIKE :query");
+    $stmt = $pdo->prepare("SELECT m.id, m.nome, m.especialidade, c.nome AS clinica, m.email FROM medicos m JOIN clinicas c ON m.clinica_id = c.id WHERE m.nome LIKE :query OR m.especialidade LIKE :query OR c.nome LIKE :query");
     $stmt->execute(['query' => $query_like]); 
     $resultados['medicos'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
