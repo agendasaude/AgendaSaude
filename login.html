@@ -59,11 +59,11 @@
                 if (error === 'empty_fields') {
                     msg = 'Por favor, preencha todos os campos';
                 } else if (error === 'invalid_email_format') {
-                    msg = 'O formato do e-mail é inválido.';
+                    msg = 'O formato do e-mail é inválido';
                 } else if (error === 'admin_required') {
                     msg = 'Acesso restrito. Apenas administradores podem acessar';
                 } else {
-                    msg = 'E-mail ou senha inválidos. Tente novamente.';
+                    msg = 'E-mail ou senha inválidos';
                 }
                 messageDiv.textContent = msg;
                 messageDiv.style.display = 'block';
@@ -76,3 +76,4 @@
     </script>
 </body>
 </html>
+
