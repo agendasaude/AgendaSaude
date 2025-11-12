@@ -52,15 +52,16 @@
             const error = urlParams.get('error');
             const status = urlParams.get('status');
             const messageDiv = document.getElementById('feedback-message');
+            
             let msg = '';
             if (error) {
                 messageDiv.classList.add('error-message');
                 if (error === 'empty_fields') {
-                    msg = 'Por favor, preencha todos os campos.';
+                    msg = 'Por favor, preencha todos os campos';
                 } else if (error === 'invalid_email_format') {
                     msg = 'O formato do e-mail é inválido.';
                 } else if (error === 'admin_required') {
-                    msg = 'Acesso restrito. Apenas administradores podem acessar.';
+                    msg = 'Acesso restrito. Apenas administradores podem acessar';
                 } else {
                     msg = 'E-mail ou senha inválidos. Tente novamente.';
                 }
@@ -68,7 +69,7 @@
                 messageDiv.style.display = 'block';
             } else if (status === 'logged_out') {
                 messageDiv.classList.add('success-message');
-                msg = 'Sessão encerrada com sucesso.';
+                msg = 'Sessão encerrada com sucesso';
                 messageDiv.textContent = msg;
                 messageDiv.style.display = 'block';
             } });
