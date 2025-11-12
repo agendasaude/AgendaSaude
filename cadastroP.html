@@ -71,11 +71,11 @@
                 messageDiv.classList.remove('success-message');
                 messageDiv.classList.add('error-message');
                 if (error === 'empty_or_invalid_fields') {
-                    msg = 'Por favor, preencha todos os campos obrigatórios corretamente.';
+                    msg = 'Por favor, preencha todos os campos obrigatórios corretamente';
                 } else if (error === 'email_or_cpf_already_registered') {
-                    msg = 'E-mail ou CPF já cadastrado. Tente fazer login.';
+                    msg = 'E-mail ou CPF já cadastrado';
                 } else {
-                    msg = 'Ocorreu um erro desconhecido no cadastro.';
+                    msg = 'Erro no cadastro';
                 }
                 messageDiv.textContent = msg;
                 messageDiv.style.display = 'block'; } });
