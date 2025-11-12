@@ -14,9 +14,7 @@ $input = filter_input_array(INPUT_POST, [
     'telefone' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
     'email' => FILTER_VALIDATE_EMAIL,
     'senha' => FILTER_DEFAULT,
-    'especialidades' => [
-        'filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-        'flags'  => FILTER_REQUIRE_ARRAY] ]);
+    'especialidades' => ['filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS, 'flags'  => FILTER_REQUIRE_ARRAY] ]);
 extract($input);
 $senha = $_POST['senha'] ?? ''; 
 
@@ -43,7 +41,6 @@ try {
         'telefone' => $telefone,
         'email' => $email,
         'senha_hash' => $senhaHash]);
-
     $_SESSION['user_id'] = $pdo->lastInsertId();
     $_SESSION['tipo'] = 'clinica';
     $_SESSION['email'] = $email;
